@@ -94,3 +94,19 @@ def max_alert(temps,limit=80.0):
 temps=[50.1, 60.0, 90.5, 64.8, 85.2]
 m=max_alert(temps,limit=80.0)
 print("Max_temp: ",m)
+#excercise: selection sort
+print("Excercise: selection sort")
+def selection_sort(data):
+    result=data.copy()
+    n=len(result)
+    for i in range(n):
+        min_idx=1
+        for j in range(i+1,n):
+            if result[j]<result[min_idx]:
+                min_idx=j
+        result[i],result[min_idx]=result[min_idx],result[i]
+    return result
+list=[3.5,1.2,4.8,0.9,2.1]
+sorted_list=selection_sort(list)
+print("Original list: ",list)
+print("Sorted list: ",sorted_list)
