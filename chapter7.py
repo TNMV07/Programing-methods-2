@@ -33,6 +33,7 @@ if __name__ == "__main__":
     idx_binary = binary_search(sorted_ids, target)
     print(f"[Binary] target={target}, index={idx_binary} (list đã sort: {sorted_ids})")
 #excercise: The swarm collision crisis
+print("Excercise: The swarm collision crisis")
 class Robot: 
     def __init__(self, x, y): 
         self.x, self.y = x, y 
@@ -53,4 +54,43 @@ robots = [
     Robot(2, 2)
     ]
 print(check_proximity(robots, limit=0.5))
-
+#excercise: Binary search in robotics
+print("Excercise: Binary search in robotics")
+def binary_search(distances,target):
+    left=0
+    right= len(distances)-1
+    while left<=right:
+        mid=(left+right)//2
+        if distances[mid]==target:
+            return mid
+        elif distances[mid]<target:
+            left= mid +1
+        else:
+            right= mid-1
+    return-1
+distances= [0.5, 1.0, 1.5, 2.0, 2.5]
+forces= [10, 20, 30, 40, 50]
+idx= binary_search(distances=distances,target=2.0)
+if idx !=-1:
+    print("Forces: ",forces[idx])
+#excercise: The "Max Alert" system
+print("Exercise: The 'Max Alert' system")
+def max_alert(temps,limit=80.0):
+    if not temps:
+        print("No data")
+        return None
+    max_temp=temps[0]
+    fault=temps[0]>limit
+    for t in temps[1:]:
+        if t>max_temp:
+            max_temp=t
+        if t>limit:
+            fault=True
+    if fault:
+        print("Cooling system fault")
+    else:
+        print("Cooling system OK")
+    return max_temp
+temps=[50.1, 60.0, 90.5, 64.8, 85.2]
+m=max_alert(temps,limit=80.0)
+print("Max_temp: ",m)
