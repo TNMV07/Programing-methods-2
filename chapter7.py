@@ -32,3 +32,25 @@ if __name__ == "__main__":
     sorted_ids = sorted(robot_ids)
     idx_binary = binary_search(sorted_ids, target)
     print(f"[Binary] target={target}, index={idx_binary} (list đã sort: {sorted_ids})")
+#excercise: The swarm collision crisis
+class Robot: 
+    def __init__(self, x, y): 
+        self.x, self.y = x, y 
+def check_proximity(robots, limit=0.5): 
+    pairs = []
+    n = len(robots) 
+    for i in range(n): 
+        for j in range(i + 1, n): 
+            dx =robots[i].x - robots[j].x
+            dy =robots[i].y - robots[j].y
+            dist = (dx**2 + dy**2)**0.5 
+            if dist < limit: 
+                pairs.append((i, j))  # store pair 
+    return pairs
+robots = [
+    Robot(0, 0),
+    Robot(0.3, 0.3),
+    Robot(2, 2)
+    ]
+print(check_proximity(robots, limit=0.5))
+
