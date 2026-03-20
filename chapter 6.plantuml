@@ -1,0 +1,3 @@
+@startuml cac
+A ->B: Hello World
+@enduml
