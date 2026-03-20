@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import mujoco
 import mujoco.viewer
 import numpy as np
@@ -84,25 +83,3 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         data.ctrl[1] = v_right / R
 
         mujoco.mj_step(model, data) 
-=======
-import mujoco
-import mujoco.viewer
-
-xml = """
-<mujoco>
-  <worldbody>
-    <body pos="0 0 1">
-      <geom type="sphere" size="0.1"/>
-    </body>
-  </worldbody>
-</mujoco>
-"""
-
-model = mujoco.MjModel.from_xml_string(xml)
-data = mujoco.MjData(model)
-
-with mujoco.viewer.launch_passive(model, data) as viewer:
-    while viewer.is_running():
-        mujoco.mj_step(model, data)
->>>>>>> 670b68cf7db7f7afc642f5dc4cde45e142584976
-        viewer.sync()
