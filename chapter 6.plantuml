@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 @startuml cac
 A ->B: Hello World
+=======
+@startuml cac
+A ->B: Hello World
+>>>>>>> 670b68cf7db7f7afc642f5dc4cde45e142584976
 @enduml
