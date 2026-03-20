@@ -1,3 +1,4 @@
+#excercise1
 print("Exercise 1- Min, Max, Average")
 import math
 readings=[23.1,26.4,21.8,29.3,25.0]
