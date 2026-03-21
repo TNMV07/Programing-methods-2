@@ -21,6 +21,10 @@
       <geom type="box" size="0.2 0.2 0.2" rgba="1 0 0 1"/>
     </body>
 
+    <body pos="3.5 0.5 0.1">
+      <geom type="sphere" size="0.3 0.3 0.3" rgba="1 0 0 1"/>
+    <body>
+
     <!-- ROBOT -->
     <body name="base" pos="0 0 0.05">
       <joint type="free"/>
