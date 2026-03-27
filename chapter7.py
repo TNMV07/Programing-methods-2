@@ -126,3 +126,17 @@ for i  in range (1,n):
         j-=1
     A[j+1]= key
 print("Sorted list: ",A)
+#Sort a list of detected objects by distance
+objects = [
+    {"id": "A", "distance": 3.5},
+    {"id": "B", "distance": 1.2},
+    {"id": "C", "distance": 4.8},
+    {"id": "D", "distance": 0.9},
+    {"id": "E", "distance": 5.0}
+]
+sorted_objects= sorted(objects, key=lambda obj: obj["distance"])
+print(sorted_objects[0])
+print(sorted_objects)
+distances= [3.5,1.2,4.8,0.9,5.0]
+print(sorted(distances))
+print(sorted(distances, reverse = True))
