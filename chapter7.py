@@ -96,15 +96,19 @@ m=max_alert(temps,limit=80.0)
 print("Max_temp: ",m)
 #excercise: selection sort
 print("Excercise: selection sort")
-def selection_sort(data):
+def selection_sort(data:list)->list:
     result=data.copy()
     n=len(result)
     for i in range(n):
-        min_idx=1
+        print(f"Pass {i}: {result}")
+        min_idx=i
+        print("min_idx in i loop: ", min_idx)
         for j in range(i+1,n):
             if result[j]<result[min_idx]:
                 min_idx=j
+                print("min_idx in j loop updated to: ", min_idx)
         result[i],result[min_idx]=result[min_idx],result[i]
+        print(f"After swap {i} : {result}")
     return result
 list=[3.5,1.2,4.8,0.9,2.1]
 sorted_list=selection_sort(list)
