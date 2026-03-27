@@ -110,3 +110,15 @@ list=[3.5,1.2,4.8,0.9,2.1]
 sorted_list=selection_sort(list)
 print("Original list: ",list)
 print("Sorted list: ",sorted_list)
+#Insertion sort
+print("Exercise: Insertion sort visualization")
+A=[6,5,3,1,8,7,2,4]
+n= len(A)
+for i  in range (1,n):
+    key = A[i]
+    j = i-1
+    while j>=0 and A[j] > key:
+        A[j+1]= A[j]
+        j-=1
+    A[j+1]= key
+print("Sorted list: ",A)
