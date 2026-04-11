@@ -127,6 +127,7 @@ for i  in range (1,n):
     A[j+1]= key
 print("Sorted list: ",A)
 #Sort a list of detected objects by distance
+print("Exercise: Sort a list of detected objects by distance")
 objects = [
     {"id": "A", "distance": 3.5},
     {"id": "B", "distance": 1.2},
@@ -140,3 +141,9 @@ print(sorted_objects)
 distances= [3.5,1.2,4.8,0.9,5.0]
 print(sorted(distances))
 print(sorted(distances, reverse = True))
+#Engineering context
+print("Exercise: Engineering context")
+robot_distances = [2.3,0.8,4.1,1.5,3.7]
+sorted_dist = sorted(robot_distances, reverse= True)
+print(sorted_dist)
+print(f"Closest robot at: {sorted_dist[-1]}m")
