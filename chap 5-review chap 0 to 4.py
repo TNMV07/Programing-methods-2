@@ -204,7 +204,9 @@ for i in range(10):
     print(f"t={t:.1f}s: v={v:.2f} m/s")
     v = v+g*dt
 #chap 2 exercise 3
+print("\nchapter 2 exercise 3")
 T,T_env,k,dt=80.0,20.0,0.1,1.0
+t=0.0
 while T>21.0:
     T = T - k*(T-T_env)*dt
     t+=dt
