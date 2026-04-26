@@ -1,3 +1,12 @@
+#exercise 2
+print("Exercise 2: Sensor Data Cleaning")
+text=" TEMP_DATA:25.678 "
+cleaned = text.strip()
+print(f"Cleaned string: '{cleaned}'")
+value_str = cleaned.replace("TEMP_DATA:", "")
+print(f"Extracted value string: '{value_str}'")
+temperature = float(value_str)
+print(f"Temperature: {temperature:.2f} °C")
 #excerise 11
 print("Exercise 11: Multi-Axis IMU Data Processing")
 import numpy as np
@@ -78,4 +87,3 @@ df=pd.read_csv('sensor_data.csv')
 print("First 5 rows:\n", df.head())
 average_temp = round(df['Temp'].mean(),1)
 print(f"Average temperature: {average_temp:.2f}")
-
