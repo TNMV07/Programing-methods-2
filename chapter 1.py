@@ -72,8 +72,10 @@ print("Counts:", counts)
 print("Exercise 18: CSV Data Processing")
 import pandas as pd
 data=rng.random((10,3))
+print("Sensor data:\n", data)
 np.savetxt('sensor_data.csv', data, delimiter=',', header='Time,Temp,Volt', comments='')
 df=pd.read_csv('sensor_data.csv')
 print("First 5 rows:\n", df.head())
 average_temp = round(df['Temp'].mean(),1)
 print(f"Average temperature: {average_temp:.2f}")
+
