@@ -7,6 +7,121 @@ value_str = cleaned.replace("TEMP_DATA:", "")
 print(f"Extracted value string: '{value_str}'")
 temperature = float(value_str)
 print(f"Temperature: {temperature:.2f} °C")
+#exercise 3
+print("Exercise 3: Actuator Command Filtering")
+torques=[1.2,5.5,0.8,10.2,4.9,-2.1,7.0]
+safe_torques = [t for t in torques if abs(t)<=5.0]
+safe_torques.append(0.0)
+print("Safe torques:", safe_torques)
+#exercise 4
+print("Exercise 4:  Robot State Handling")
+raw_gps=(10.823,106.629,5.0)
+lat,lon,_=raw_gps
+print(f"Latitude: {lat}, Longitude: {lon}")
+def get_velocity():
+    vx, vy = 0.5, 0.3
+    return vx, vy
+vel_x, vel_y = get_velocity()
+print(f"Velocity X: {vel_x}, Velocity Y: {vel_y}")
+#exercise 5
+print("Exercise 5: Sensor Management")
+sensor_cfg={"id":101,"type":"LIDAR","range":[0.1,30.0]}
+sensor_cfg["range"]=[0.1,50.0]
+sensor_cfg["status"]="active"
+print("Updated sensor configuration:", sensor_cfg)
+active_types=["Lidar","Camera","Lidar","IMU","Camera"]
+unique_types=set(active_types)
+print("Unique sensor types:", unique_types)
+#exercise 6
+print("Exercise 6: Safety Interlock System")
+def safety_mode(dist,emergency_stop):
+    if emergency_stop==True:
+        return "ESTOP"
+    elif dist<0.5:
+        return "COLLISION"
+    elif 0.5<=dist<1.0:
+        return "WARNING"
+    else:
+        return "NORMAL"
+mode=safety_mode(0.8,False)
+print("Safety mode:", mode)
+#exercise 7
+print("Exercise 7: Battery Polling & Logging")
+voltages=[12.6,12.5,12.2,11.8,11.5,10.8,10.2]
+for Minutes,Voltage in enumerate(voltages):
+    print(f"Minute {Minutes}: Voltage={Voltage:.2f}V")
+v= 12.0
+while v>10.5:
+    v-=0.5
+    if v<=10.5:
+        print(f"Low Battery!: {v}V")
+        break
+for v in voltages:
+    if v>12.0:
+        continue
+    elif v<11.0:
+        print("Stop!")
+        break
+    else:
+        print(f"Voltage: {v}V")
+#exercise 8
+print("Exercise 8: Motor Control Supervisor")
+def set_motor_command(rpm: float, motor_id: int = 0):
+    if rpm >1000:
+        raise ValueError("Safety Limit Exceeded")
+    return (motor_id, rpm)
+try:
+    cmd = set_motor_command(1200,1)
+except ValueError as e:
+    print("Error:", e)
+cmd = set_motor_command(500,1)
+print("Motor command:", cmd)
+#exercise 9
+print("Exercise 9: Simulated Sensor Data Logger")
+class PressureSensor:
+    def __init__(self, pressure):
+        self._pressure = pressure
+    def update_reading(self,value:float):
+        if not (0.0 <= value <= 10.0):
+            raise ValueError("ValueError")
+        self._pressure = value
+    @property
+    def pressure(self):
+        return self._pressure
+sensor=PressureSensor(5.0)
+sensor_log=[]
+readings=[2.5,4.8,11.0]
+for i, value in enumerate(readings):
+    try:
+        sensor.update_reading(value)
+        sensor_log.append({
+            "id": i,
+            "val": sensor.pressure,
+            "status": "OK"
+        }) 
+    except ValueError:
+        sensor_log.append({
+            "id": i,
+            "val": value,
+            "status": "ERROR"
+        })
+print(sensor_log)
+#exercise 10
+print("Exercise 10: Robotic Reachability & Profiling")
+import math
+import datetime
+def arm_length():
+    return 1.5
+def target_angle_deg():
+    return 30.0
+starttime=datetime.datetime.now()
+rad=target_angle_deg() * math.pi / 180
+x=arm_length() * math.cos(rad)
+y=arm_length() * math.sin(rad)
+endtime=datetime.datetime.now()
+duration=(endtime-starttime).microseconds
+print(f"End-effector position: ({x:.3f}, {y:.3f})")
+print(f"Duration: {duration} microseconds")
 #excerise 11
 print("Exercise 11: Multi-Axis IMU Data Processing")
 import numpy as np
