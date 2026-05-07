@@ -216,12 +216,41 @@ print("Exercise 3.2: Lookup Table Interpolation")
 def lookup_interpolate(table, x):
     #table: list of (x,y) tuples, sorted by x
     for i in range(len(table)-1):
-        x0, y0 = table[i]
-        x1, y1 = table[i+1]
+        x2, y2 = table[i]
+        x3, y3 = table[i+1]
         #if x is between theese two points
-        if x0 <= x <= x1:
-            return y0
-        radio= (x-x0)/(x1-x0)
-        y= y0 + radio*(y1-y0)
+        if x2 <= x <= x3:
+            if x3 == x2:    
+                return y2
+        radio= (x-x2)/(x3-x2)
+        y= y2 + radio*(y3-y2)
         return y
-    
+    return None
+# Test 1: Tempurature calibration table 
+table = [(0.0, 0.0), (1.0, 30.0), (2.0, 60.0), (3.0, 90.0)]
+result = lookup_interpolate(table, 1.5)
+print(f"Temperature at 1.5V: {result:.2f}°C")  # Should print: 45.00°C
+# Test 2: Motor control table
+motor_table = [
+    (0,0),
+    (25, 500),
+    (50, 1000),
+    (75, 1500),
+    (100, 2000)
+]
+result= lookup_interpolate(motor_table, 37.5)
+print(f"RPM at 37.5%: {result:.2f} RPM")  # Should print: 750.00 RPM
+# Test 3: Exact table point
+result = lookup_interpolate(table, 2.0)
+print(f"Exact: {result:.2f}°C")  # Should print: 60.0°C
+# Test 4: Value outside bounds
+result = lookup_interpolate(table, 5.0)
+print(f"Outside bounds: {result:.2f}")  # Should print: None
+# Test 5: Robot distance sensor table
+sensor_table = [
+    (100, 2.0),
+    (200, 1.0),
+    (300, 0.5)
+]
+result = lookup_interpolate(sensor_table, 150)
+print(f"Distance at ADC 150: {result:.2f}m")  # Should print: 1.50m
