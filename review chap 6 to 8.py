@@ -160,4 +160,68 @@ result = binary_search([10, 20, 30, 40, 50], 50)
 print(result)  # Should print: 4
 # Test 4: Target not found
 result = binary_search([1, 3, 5, 7, 9], 4)
-print(result)  # Should print: -1
+print(result)  # Should print: -1'
+#exercise 2.5
+print("Exercise 2.5: Min, Max, Average Statistics")
+def computer_statistics(readings):
+    if not readings:
+        return None
+    min_val = min(readings)
+    max_val = max(readings)
+    avg_val = sum(readings) / len(readings)
+    return min_val, max_val, avg_val
+# Test 1: Normal sensor data
+readings = [23.1, 26.4, 21.8, 29.3, 25.0]
+min_v, max_v, avg_v = computer_statistics(readings)
+print(f"Min: {min_v}, Max: {max_v}, Average: {avg_v:.2f}")
+#should print: Min: 21.8, Max: 29.3, Average: 25.12
+# Test 2: Single reading
+readings = [42.5]
+result = computer_statistics(readings)
+print(result)  # Should print: (42.5, 42.5, 42.5)
+# Test 3: Negative values
+readings = [-10, -5, 0, 5, 10]
+result = computer_statistics(readings)
+print(result)  # Should print: (-10, 10, 0.0)
+# Test 4: Empty list
+result = computer_statistics([])
+print(result)  # Should print: None
+#exercise 3.1
+print("Exercise 3.1: Linear interpolation")
+def linear_interpolate(x0, y0, x1, y1, x):
+    if x1 == x0:
+        return y0
+    ratio = (x - x0) / (x1 - x0)
+    y =y0 + ratio * (y1 - y0)
+    return y
+# Test 1: Thermistor calibration
+# At 1V -> 30°C, At 2V -> 60°C, Query: 1.5V ->?
+result = linear_interpolate(1.0, 30.0, 2.0, 60.0, 1.5)
+print(f"Temperature at 1.5V: {result:.2f}°C")  # Should print: 45.00°C
+# Test 2: ADC value to distance (robot sensor)
+# At 100 ticks → 0.5m, At 200 ticks → 1.0m, Query: 150 ticks → ?
+result = linear_interpolate(100, 0.5, 200, 1.0, 150)
+print(f"Distance: {result:.2f}m")  # Should print: 0.75m
+# Test 3: Time to position (trajectory planning)
+# At t=0s → pos=0mm, At t=2s → pos=100mm, Query: t=0.5s → ?
+result = linear_interpolate(0, 0, 2, 100, 0.5)
+print(f"Position at 0.5s: {result:.2f}mm")  # Should print: 25.00mm
+# Test 4: Exact endpoints
+result1=linear_interpolate(1.0, 30.0, 2.0, 60.0, 1.0)
+result2=linear_interpolate(1.0, 30.0, 2.0, 60.0, 2.0)
+print(f"At x-1.0: {result1:.2f}°C")  # Should print: 30.0°C
+print(f"At x-2.0: {result2:.2f}°C")  # Should print: 60.0°C
+# exercise 3.2
+print("Exercise 3.2: Lookup Table Interpolation")
+def lookup_interpolate(table, x):
+    #table: list of (x,y) tuples, sorted by x
+    for i in range(len(table)-1):
+        x0, y0 = table[i]
+        x1, y1 = table[i+1]
+        #if x is between theese two points
+        if x0 <= x <= x1:
+            return y0
+        radio= (x-x0)/(x1-x0)
+        y= y0 + radio*(y1-y0)
+        return y
+    
