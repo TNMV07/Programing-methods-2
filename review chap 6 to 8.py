@@ -254,3 +254,60 @@ sensor_table = [
 ]
 result = lookup_interpolate(sensor_table, 150)
 print(f"Distance at ADC 150: {result:.2f}m")  # Should print: 1.50m
+#exercise 3.3
+print("Exercise 3.3: Moving Average Filter")
+class MovingAverageFilter:
+    def __init__(self, window_size):
+        self.window=[]
+        self.window_size=window_size
+    def apply(self, value):
+        self.window.append(value)
+        if len(self.window)>self.window_size:
+            self.window.pop(0)
+        return sum(self.window)/len(self.window)
+# Test 1: Basic temperature sensor smoothing
+filter = MovingAverageFilter(3)
+raw_temps = [25.1, 24.8, 25.3, 24.7, 25.4, 24.9] 
+filtered = [filter.apply(v) for v in raw_temps] 
+print("Raw:     ", raw_temps) 
+print("Filtered:", [round(f, 1) for f in filtered]) 
+# Output: 
+# Raw:      [25.1, 24.8, 25.3, 24.7, 25.4, 24.9] 
+# Filtered: [25.1, 25.0, 25.1, 24.9, 25.1, 25.0] 
+# Test 2: Window size = 2 
+filter2 = MovingAverageFilter(2) 
+values = [1.0, 0.9, 1.1, 0.8, 1.2] 
+result = [filter2.apply(v) for v in values] 
+print(result)
+# Output: [1.0, 0.95, 1.0, 0.95, 1.0]
+# Test 3: Single-value window (no filtering) 
+filter3 = MovingAverageFilter(1) 
+values = [10, 20, 30, 40] 
+result = [filter3.apply(v) for v in values] 
+print(result)                           # Output: [10, 20, 30, 40]
+#Test 4: Large window (heavy smoothing) 
+filter4 = MovingAverageFilter(5) 
+noisy = [1.0, 10.0, 2.0, 8.0, 3.0, 7.0, 4.0] 
+result = [filter4.apply(v) for v in noisy] 
+print([round(x, 2) for x in result]) 
+# Notice: Large window smooths out spikes but lags behind changes
+#exercise 3.4
+print("Exercise 3.4: Threshold Detection")
+def detect_threshold_breaches(readings, threshold):
+    breaches=[]
+    for i, reading in enumerate(readings):
+        if reading<threshold:
+            breaches.append(i)
+    return breaches
+# Test 1: Basic collision detection
+readings = [1.2, 0.8, 0.3, 1.5, 0.4, 1.1]
+breaches = detect_threshold_breaches(readings, 0.5) 
+print(f"Breaches at indices: {breaches}")    # Output: [1, 2, 4]
+# Test 2: No breaches (all safe)
+readings = [2.0, 1.8, 2.5, 3.0, 1.5]
+breaches = detect_threshold_breaches(readings, 1.0)
+print(f"Breaches: {breaches}")    # Output: []
+# Test 3: Multiple breaches
+readings = [0.1, 0.2, 0.3, 0.8, 0.2, 1.0]
+breaches = detect_threshold_breaches(readings, 0.5)
+print(f"Low distance obstacles at: {breaches}")    # Output: [0, 1, 2, 4]
