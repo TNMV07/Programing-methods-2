@@ -311,3 +311,55 @@ print(f"Breaches: {breaches}")    # Output: []
 readings = [0.1, 0.2, 0.3, 0.8, 0.2, 1.0]
 breaches = detect_threshold_breaches(readings, 0.5)
 print(f"Low distance obstacles at: {breaches}")    # Output: [0, 1, 2, 4]
+#exercise 4.1
+print("Exercise 4.1: 1D Gradient Descent")
+def gradient_descent_1d(initial_x, learning_rate=0.1, max_epochs=100):
+    x=initial_x
+    for epoch in range(max_epochs):
+        #For f(x)= x^2+5, derivative is 2x
+        gradient= 2*x
+        x_new=x-learning_rate*gradient
+        #Check convergence
+        if abs(x_new-x)<1e-6:
+            print(f"Converged in {epoch} epochs")
+            break
+        x=x_new
+    return x
+# Test 1: Starting from x=5
+result = gradient_descent_1d(5.0, learning_rate=0.1)
+print(f"Minimum at x={result}")
+# Test 2: Starting from x=-3
+result = gradient_descent_1d(-3.0, learning_rate=0.1)
+print(f"Minimum at x={result}")
+# Test 3: Very small learning rate (slow convergence)
+result = gradient_descent_1d(5.0, learning_rate=0.01, max_epochs=1000)
+print(f"Slow descent: x={result}")
+# Test 4: Larger learning rate (faster but risky)
+result = gradient_descent_1d(5.0, learning_rate=0.2)
+print(f"Fast descent: x={result}")
+# Test 5: Show convergence progress
+def gradient_descent_verbose(initial_x, learning_rate=0.1):
+    x=initial_x
+    for epoch in range(20):
+        gradient= 2*x
+        x_new=x-learning_rate*gradient
+        print(f"Epoch {epoch}: x={x:.6f}, gradient= {gradient:.6f}")
+        if abs(x_new-x)<1e-6:
+            print(f"Converged at x= {x_new:.6f}")
+            break
+        x=x_new
+gradient_descent_verbose(5.0, 0.1)
+#exercise 5.1
+def process_sensor_stream(raw_readings, window_size=3, threshold=0.5):
+    filter_obj = MovingAverageFilter(window_size)
+    filtered = [filter_obj.apply(r) for r in raw_readings]
+    breaches = detect_threshold_breaches(filtered, threshold)
+    return filtered, breaches
+# Test: LIDAR collision detection
+raw_distances = [1.2, 0.9, 0.2, 0.8, 0.3, 1.5, 1.4, 0.4, 0.5, 1.6]
+#                      ^ noise spike  ^ noise spike  ^ noise spike
+filtered, breaches = process_sensor_stream(raw_distances, window_size=3, threshold=0.5)
+print("Raw readings: ", [round(x, 1) for x in raw_distances])
+print("Filtered data: ", [round(x, 2) for x in filtered])
+print("Breaches indices: ", breaches)
+print("Breaches at values: ", [round(filtered[i], 2) for i in breaches])
