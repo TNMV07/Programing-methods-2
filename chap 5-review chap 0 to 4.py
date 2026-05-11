@@ -230,6 +230,32 @@ class EventLogger:
         self.history.append(round(value, 4))
     def report(self)-> None:
         print(f"History: {self.history}")
+#chap 3 exercise 2
+print("\nchapter 3 exercise 2")
+class Detector:
+    def __init__(self, threshold: float):
+        self.threshold = threshold
+    def is_triggered_value (self, value: float)-> bool:
+        return value > self.threshold
+class Siren:
+    def __init__ (self, channel: int):
+        self.channel = channel
+    def activate(self)-> None:
+        print(f"ALARM ! Siren on channel {self.channel} activated!")
+class AlarmSystem:
+    def __init__ (self, detector: Detector, siren: Siren):
+        self.detector = detector
+        self.siren = siren
+    def check (self, reading: float)-> None:
+        if self.detector.is_triggered_value(reading):
+            self.siren.activate()
+        else:
+            print(f"Normal. Reading: {reading}")
+detector = Detector(threshold=50)
+siren    = Siren(channel=3)
+alarm    = AlarmSystem(detector=detector, siren=siren)
+alarm.check(reading=75)
+alarm.check(reading=30)
 #chap 4 exercise 1
 print("\nchapter 4 exercise 1")
 from enum import Enum
